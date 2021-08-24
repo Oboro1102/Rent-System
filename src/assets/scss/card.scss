@@ -1,0 +1,118 @@
+@import "_mixin";
+.card {
+    width: 100%;
+
+    &__noResult {
+        width: 100%;
+        color: $color-gray;
+        font-size: $font-size-black;
+        font-weight: $font-weight-bold;
+        text-align: center;
+    }
+
+    &__list {
+        @include list-style;
+        display: flex;
+        align-items: flex-start;
+        flex-wrap: wrap;
+
+        &__item {
+            @include flex-arrangement(6);
+            background-color: $color-area-bg;
+            border-radius: $border-radius;
+
+            @include breakpoint-xxl {
+                &:nth-of-type(6n) {
+                    margin-right: $grid-gap;
+                }
+                @include flex-arrangement(5);
+            }
+
+            @include breakpoint-xl {
+                &:nth-of-type(5n) {
+                    margin-right: $grid-gap;
+                }
+                @include flex-arrangement(4);
+            }
+
+            @include breakpoint-lg {
+                &:nth-of-type(4n) {
+                    margin-right: $grid-gap;
+                }
+                @include flex-arrangement(3);
+            }
+
+            @include breakpoint-md {
+                &:nth-of-type(3n) {
+                    margin-right: $grid-gap;
+                }
+                @include flex-arrangement(2);
+            }
+
+            @include breakpoint-sm {
+                width: 100%;
+                margin-right: 0 !important;
+
+                &:nth-of-type(n + 2) {
+                    margin-top: $grid-gap;
+                }
+            }
+
+            &__cover {
+                position: relative;
+                width: 100%;
+                height: 0;
+                margin: 0 0 calc(#{$grid-gap}/ 2);
+                padding-bottom: 56.25%;
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                border-radius: $border-radius $border-radius 0 0;
+                overflow: hidden;
+            }
+
+            &__header {
+                display: flex;
+                align-items: center;
+                flex-wrap: wrap;
+                margin: 0 0 calc(#{$grid-gap}/ 2);
+                padding: 0 calc(#{$grid-gap}/ 2) calc(#{$grid-gap}/ 2);
+                border-bottom: $border-line;
+                font-size: $font-size-medium;
+                font-weight: $font-weight-bold;
+
+                &__tag {
+                    margin-left: auto;
+                    padding: 0.2em 0.5em;
+                    color: $color-white;
+                    font-size: $font-size-light;
+                    font-weight: $font-weight-regular;
+                    border-radius: $border-radius-round;
+                }
+            }
+
+            &__info {
+                margin: 0;
+                padding: 0 calc(#{$grid-gap}/ 2) calc(#{$grid-gap}/ 2);
+                font-size: $font-size-light;
+                word-break: break-all;
+
+                i {
+                    min-width: 1.2em;
+                    margin-right: 0.5em;
+                    color: $color-gray;
+                    text-align: center;
+                }
+
+                &__title {
+                    margin: 0 0 calc(#{$grid-gap}/ 3);
+                    font-size: $font-size-light;
+
+                    i {
+                        color: inherit;
+                    }
+                }
+            }
+        }
+    }
+}

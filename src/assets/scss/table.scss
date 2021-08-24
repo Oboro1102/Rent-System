@@ -1,0 +1,246 @@
+@import "_mixin";
+
+.table {
+  width: 100%;
+  padding: calc(#{$grid-gap}/ 2) $grid-gap;
+  background-color: $color-area-bg;
+  border-radius: $border-radius;
+
+  @include breakpoint-lg {
+    padding: $grid-gap;
+  }
+
+  table {
+    width: 100%;
+    word-break: break-all;
+    border-collapse: collapse;
+    font-size: $font-size-light;
+
+    .button {
+      width: 100%;
+
+      @include breakpoint-lg {
+        width: 5rem;
+      }
+    }
+
+    thead,
+    tfoot {
+      tr {
+        th {
+          padding: calc(#{$grid-gap}/ 2);
+          color: $color-gray;
+          font-weight: $font-weight-bold;
+        }
+      }
+    }
+
+    thead {
+      tr {
+        border-bottom: $border-line;
+      }
+    }
+
+    tbody {
+      tr {
+        border-bottom: $border-line;
+
+        &:last-of-type {
+          border-bottom: none;
+        }
+
+        &.noResult {
+          color: $color-gray;
+          font-size: $font-size-black;
+          font-weight: $font-weight-bold;
+          text-align: center;
+        }
+
+        td {
+          padding: calc(#{$grid-gap}/ 2);
+
+          h6 {
+            margin: 0 0 0.25em;
+
+            small {
+              display: block;
+              font-weight: $font-weight-regular;
+            }
+          }
+
+          img {
+            width: 40px;
+            height: 40px;
+            margin-right: 0.75em;
+            border-radius: $border-radius-round;
+            overflow: hidden;
+          }
+
+          i {
+            min-width: 1.1em;
+            margin-right: 0.3em;
+            text-align: center;
+          }
+
+          .listItem {
+            margin-bottom: 1em;
+            padding-bottom: 1em;
+            border-bottom: $border-line;
+
+            &:last-child {
+              margin-bottom: 0;
+              padding-bottom: 0;
+              border-bottom: none;
+            }
+
+            @include breakpoint-lg {
+              margin-bottom: 0;
+              margin-right: 2em;
+              padding-bottom: 0;
+              border-bottom: none;
+
+              &:last-child {
+                margin-right: 0;
+              }
+            }
+
+            img {
+              width: 25px;
+              height: 25px;
+            }
+          }
+        }
+      }
+    }
+
+    @include breakpoint-lg {
+      display: block;
+
+      thead,
+      tfoot {
+        display: none;
+      }
+
+      tbody {
+        display: block;
+
+        tr {
+          display: block;
+          height: auto;
+          padding: $grid-gap 0;
+          border-top: $border-title-header;
+          border-bottom: none;
+
+          &:first-child {
+            margin-top: 0;
+            padding-top: 0;
+            border-top: none;
+          }
+
+          &:last-child {
+            padding-bottom: 0;
+          }
+
+          td {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: calc(#{$grid-gap}/ 1.5) 0;
+            border-bottom: $border-line;
+
+            &:first-child {
+              border-radius: 0;
+              padding-top: 0;
+              padding-left: 0;
+            }
+
+            &:last-child {
+              border-radius: 0;
+              border-bottom: none;
+              padding-bottom: 0;
+            }
+          }
+        }
+      }
+
+      //手機板標籤
+      tbody tr td {
+        &::before {
+          margin-right: auto;
+          font-weight: $font-weight-bold;
+        }
+      }
+
+      .mobile-label {
+        // 會員
+        &.memberName::before {
+          content: "姓名";
+        }
+        &.phone::before {
+          content: "電話";
+        }
+        &.email::before {
+          content: "電子郵件";
+        }
+        &.location::before {
+          content: "地址";
+        }
+        &.created::before {
+          content: "註冊時間";
+        }
+        &.ious::before {
+          content: "租借紀錄";
+        }
+
+        // 物件
+        &.goodsName::before {
+          content: "品名";
+        }
+        &.goodsStatus::before {
+          content: "物件狀態";
+        }
+        &.price::before {
+          content: "價格";
+        }
+        &.stock::before {
+          content: "庫存";
+        }
+        &.summary::before {
+          content: "簡介";
+        }
+        &.maintain::before {
+          content: "維護";
+        }
+
+        // 借單
+        &.sn::before {
+          content: "借單編號";
+        }
+        &.iouStatus::before {
+          content: "借單狀態";
+        }
+        &.lessee::before {
+          content: "承租人";
+        }
+        &.lease::before {
+          content: "承租物";
+        }
+        &.rent::before {
+          content: "租金 (台幣)";
+        }
+        &.deposit::before {
+          content: "押金 (台幣)";
+        }
+        &.returnDate::before {
+          content: "租期 (迄)";
+        }
+        &.notes::before {
+          content: "備註";
+        }
+        &.operating::before {
+          content: "操作";
+        }
+      }
+    }
+  }
+}

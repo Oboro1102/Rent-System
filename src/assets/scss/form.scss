@@ -1,0 +1,154 @@
+@import "_mixin";
+
+.form {
+  position: relative;
+  width: 100%;
+  padding: $grid-gap 0;
+  color: $color-gray-light;
+
+  &__row {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    padding: 0 $grid-gap;
+    margin-bottom: calc(#{$grid-gap}* 1.5);
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &__column {
+      width: calc(calc(100% - #{$grid-gap}) / 2);
+      margin-right: $grid-gap;
+
+      &:last-of-type {
+        margin-right: 0;
+      }
+
+      @include breakpoint-xxl {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: $grid-gap;
+
+        &:last-of-type {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+
+  &__header {
+    width: 100%;
+    margin: 0 auto $grid-gap;
+    padding: 0 $grid-gap;
+    text-align: left;
+    color: $color-main;
+    font-size: $font-size-bold;
+
+    &__notes {
+      margin-left: 1em;
+      color: $color-green;
+      font-size: $font-size-light;
+    }
+  }
+
+  &__content {
+    width: 100%;
+    margin-bottom: $grid-gap;
+
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+
+    &__title {
+      display: flex;
+      align-items: center;
+      margin: 0 0 calc(#{$grid-gap}/ 4);
+      font-size: $font-size-regular;
+      color: $color-gray;
+      text-align: left;
+    }
+
+    &__alert {
+      color: $color-red;
+      font-size: $font-size-light;
+    }
+  }
+
+  &__selector {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+    color: $color-input-placeholder;
+    font-size: $font-size-light;
+
+    &__result {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      margin-top: calc(#{$grid-gap}/ 2);
+      color: $color-black;
+      font-size: $font-size-regular;
+
+      &:first-child {
+        margin-top: 0;
+      }
+
+      img {
+        width: 50px;
+        min-width: 50px;
+        height: 50px;
+        min-height: 50px;
+        margin-right: 0.5em;
+        border-radius: $border-radius-round;
+        overflow: hidden;
+      }
+
+      &__select {
+        position: relative;
+        margin-left: auto;
+
+        &::before {
+          position: absolute;
+          left: -3rem;
+          bottom: 50%;
+          transform: translateY(50%);
+          content: "數量：";
+          font-size: $font-size-light;
+        }
+
+        select {
+          width: 3.5rem;
+          text-align-last: center;
+          background-position: right 0 top 50%;
+        }
+      }
+    }
+  }
+
+  &__control {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: $grid-gap;
+    border-top: $border-line;
+
+    .button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 125px;
+
+      @include breakpoint-esm {
+        width: 100px;
+      }
+
+      i {
+        margin-right: 0.5em;
+        font-size: $font-size-medium;
+      }
+    }
+  }
+}
