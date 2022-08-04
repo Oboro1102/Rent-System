@@ -8,115 +8,61 @@
             <div class="form__row__column">
               <div class="form__content">
                 <h4 class="form__content__title">名稱</h4>
-                <input
-                  type="text"
-                  name="title"
-                  placeholder="請輸入名稱"
-                  v-model="goods.title"
-                />
-                <span class="form__content__alert" v-if="alert.title">
-                  {{ alert.title }}
-                </span>
+                <input type="text" name="title" placeholder="請輸入名稱" v-model="goods.title" />
+                <span class="form__content__alert" v-if="alert.title" v-text="alert.title" />
               </div>
               <div class="form__content">
                 <h4 class="form__content__title">
                   圖片
-                  <span class="notes"
-                    >建議尺寸為 200 x 200 px，檔案格式為 jpg，容量低於
-                    100kb</span
-                  >
+                  <span class="notes">建議尺寸為 200 x 200 px，檔案格式為 jpg，容量低於
+                    100kb</span>
                 </h4>
                 <div class="form__row picPreview">
                   <div class="picPreview__currentPic" v-if="goods.pic">
                     <img :src="goods.pic" :alt="goods.title" />
                   </div>
                   <div class="picPreview__currentPic" v-else>
-                    <i class="fas fa-image"></i>
+                    <i class="fas fa-image" />
                   </div>
                   <div class="picPreview__customFile">
                     上傳檔案（僅限 1 張）
-                    <input
-                      type="file"
-                      name="cover"
-                      accept=".jpg"
-                      @change="picPreview"
-                    />
+                    <input type="file" name="cover" accept=".jpg" @change="picPreview" />
                   </div>
                 </div>
-                <span class="form__content__alert" v-if="alert.pic">
-                  {{ alert.pic }}
-                </span>
+                <span class="form__content__alert" v-if="alert.pic" v-text="alert.pic" />
               </div>
               <div class="form__content">
                 <h4 class="form__content__title">簡介</h4>
-                <textarea
-                  name="summary"
-                  rows="3"
-                  placeholder="請輸入內容"
-                  v-model="goods.summary"
-                ></textarea>
-                <span class="form__content__alert" v-if="alert.summary">
-                  {{ alert.summary }}
-                </span>
+                <textarea name="summary" rows="3" placeholder="請輸入內容" v-model="goods.summary"></textarea>
+                <span class="form__content__alert" v-if="alert.summary" v-text="alert.summary" />
               </div>
             </div>
             <div class="form__row__column">
               <div class="form__content">
                 <h4 class="form__content__title">租金價格</h4>
-                <input
-                  type="number"
-                  name="price"
-                  min="1"
-                  placeholder="請直接輸入數字"
-                  v-model="goods.price"
-                />
-                <span class="form__content__alert" v-if="alert.price">
-                  {{ alert.price }}
-                </span>
+                <input type="number" name="price" min="1" placeholder="請直接輸入數字" v-model="goods.price" />
+                <span class="form__content__alert" v-if="alert.price" v-text="alert.price" />
               </div>
               <div class="form__content">
                 <h4 class="form__content__title">
                   可租數量
                   <span class="notes">請注意數量為 0 時，商品將停止租賃</span>
                 </h4>
-                <input
-                  type="number"
-                  name="stock"
-                  min="0"
-                  placeholder="請直接輸入數字"
-                  v-model="goods.stock"
-                />
-                <span class="form__content__alert" v-if="alert.stock">
-                  {{ alert.stock }}
-                </span>
+                <input type="number" name="stock" min="0" placeholder="請直接輸入數字" v-model="goods.stock" />
+                <span class="form__content__alert" v-if="alert.stock" v-text="alert.stock" />
               </div>
               <div class="form__content">
                 <h4 class="form__content__title">狀態</h4>
                 <label class="status">
-                  <input
-                    type="radio"
-                    name="status"
-                    value="0"
-                    v-model="goods.status"
-                  />
+                  <input type="radio" name="status" value="0" v-model="goods.status" />
                   <span>可租借</span>
                 </label>
                 <label class="status">
-                  <input
-                    type="radio"
-                    name="status"
-                    value="1"
-                    v-model="goods.status"
-                  />
+                  <input type="radio" name="status" value="1" v-model="goods.status" />
                   <span>暫停租借</span>
                 </label>
                 <label class="status">
-                  <input
-                    type="radio"
-                    name="status"
-                    value="2"
-                    v-model="goods.status"
-                  />
+                  <input type="radio" name="status" value="2" v-model="goods.status" />
                   <span>已下架</span>
                 </label>
               </div>
@@ -125,14 +71,14 @@
           <div class="form__control">
             <button type="submit" class="button">
               <span v-if="isNew">
-                <i class="fas fa-cloud-upload-alt"></i> 上架
+                <i class="fas fa-cloud-upload-alt" /> 上架
               </span>
-              <span v-else><i class="fas fa-sync-alt"></i> 更新</span>
+              <span v-else><i class="fas fa-sync-alt" /> 更新</span>
             </button>
           </div>
         </form>
         <button type="button" class="button button--close" @click="endEditor">
-          <i class="fas fa-times"></i>
+          <i class="fas fa-times" />
         </button>
       </div>
     </div>
@@ -248,8 +194,8 @@ export default {
       }
 
       if (isNewGoods && data.id === null) {
-        const newid = store.state.goods.goods.length + 1;
-        data.id = newid.toString();
+        const newId = store.state.goods.goods.length + 1;
+        data.id = newId.toString();
       }
 
       store.dispatch("goods/updateGoodsData", { data }, { root: true });
