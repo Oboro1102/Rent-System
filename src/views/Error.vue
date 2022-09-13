@@ -2,13 +2,8 @@
   <div class="container">
     <div class="container__icon"><i class="fas fa-exclamation-circle"></i></div>
     <h1>
-      您欲前往的頁面<span class="text-yellow">不存在</span>或<span
-        class="text-yellow"
-        >無權訪問</span
-      ><br />如有問題請聯絡管理員<span
-        style="display: inline-block; transform: rotate(10deg)"
-        >！</span
-      >
+      您欲前往的頁面<span class="text-yellow">不存在</span>或<span class="text-yellow">無權訪問</span><br />如有問題請聯絡管理員<span
+        style="display: inline-block; transform: rotate(10deg)">！</span>
     </h1>
     <button type="button" class="button" @click="routerTo">回到首頁</button>
   </div>

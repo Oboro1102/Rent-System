@@ -93,11 +93,11 @@ export default {
   props: {
     data: {
       type: Object,
-      required: true,
+      default: () => ({}),
     },
     isNew: {
       type: Boolean,
-      required: true,
+      default: false,
     },
   },
   setup(props) {
@@ -140,13 +140,13 @@ export default {
     const getSrcURL = (file) => {
       let url = null;
 
-      if (window.createObjectURL !== undefined) {
+      if (window.createObjectURL) {
         // base
         url = window.createObjectURL(file);
-      } else if (window.URL !== undefined) {
+      } else if (window.URL) {
         // mozilla(firefox)
         url = window.URL.createObjectURL(file);
-      } else if (window.webkitURL !== undefined) {
+      } else if (window.webkitURL) {
         // webkit or chrome
         url = window.webkitURL.createObjectURL(file);
       }
@@ -173,27 +173,27 @@ export default {
       };
       const isNewGoods = props.isNew;
 
-      if (goods.title === null || goods.title === "") {
+      if (!goods.title || goods.title.length < 1) {
         return (alert.title = "請輸入名稱！");
       }
-      if (goods.pic === null) {
+      if (!goods.pic) {
         return (alert.pic = "請上傳圖片！");
       }
-      if (goods.price === null || goods.price === "") {
+      if (!goods.price || goods.price.length < 1) {
         return (alert.price = "請輸入租借費用！");
       }
-      if (goods.stock === null || goods.stock === "") {
+      if (!goods.stock || goods.stock.length < 1) {
         return (alert.stock = "請輸入數量！");
       }
-      if (goods.summary === null || goods.summary === "") {
+      if (!goods.summary || goods.summary.length < 1) {
         return (alert.summary = "請輸入簡介！");
       }
 
-      if (data.stock == 0) {
+      if (data.stock === 0) {
         data.status = 2;
       }
 
-      if (isNewGoods && data.id === null) {
+      if (isNewGoods && !data.id) {
         const newId = store.state.goods.goods.length + 1;
         data.id = newId.toString();
       }
@@ -206,39 +206,39 @@ export default {
     };
 
     watch(goods, (goods) => {
-      if (goods.title === "") {
+      if (!goods.title || goods.title.length < 1) {
         goods.title = null;
         alert.title = "請輸入名稱！";
-      }
-      if (goods.title === null || goods.title.length !== 0) {
+      } else {
         alert.title = null;
       }
-      if (goods.pic === null) {
+
+      if (goods.pic) {
+        alert.pic = null;
+      } else {
         goods.pic = null;
         alert.pic = "請上傳圖片！";
       }
-      if (goods.pic != null) {
-        alert.pic = null;
-      }
-      if (goods.price === "") {
+
+      if (!goods.price || goods.price.length < 1) {
         goods.price = null;
         alert.price = "請輸入租借費用！";
-      }
-      if (goods.price === null || goods.price.length !== 0) {
+      } else {
         alert.price = null;
       }
-      if (goods.stock === "") {
+
+      if (!goods.stock || goods.stock.length < 1) {
         goods.stock = null;
         alert.stock = "請輸入數量！";
-      }
-      if (goods.stock === null || goods.stock.length !== 0) {
+      } else {
         alert.stock = null;
+
       }
-      if (goods.summary === "") {
+
+      if (!goods.summary || goods.summary.length < 1) {
         goods.summary = null;
         alert.summary = "請輸入簡介！";
-      }
-      if (goods.summary === null || goods.summary.length !== 0) {
+      } else {
         alert.summary = null;
       }
     });

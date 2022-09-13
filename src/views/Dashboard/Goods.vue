@@ -1,115 +1,71 @@
 <template>
   <div>
     <SearchBar :placeholder="'請輸入物件名稱'" />
-    <button
-      type="button"
-      class="button button--add"
-      @click="callGoodsEditor(true)"
-    >
+    <button type="button" class="button button--add" @click="callGoodsEditor(true)">
       <i class="fas fa-plus"></i>
       <span>新增</span>
     </button>
     <transition name="slideRight" mode="out-in" appear>
       <CardView :cardData="searchProduct" v-if="dataView === 'card'">
         <template #cardData="cardData">
-          <div
-            class="card__list__item__cover"
-            :style="{ backgroundImage: 'url(' + cardData.item.pic + ')' }"
-          ></div>
+          <div class="card__list__item__cover" :style="{ backgroundImage: `url('${cardData.item.pic}')` }" />
           <h5 class="card__list__item__header">
-            {{ cardData.item.title }}
-            <div
-              class="card__list__item__header__tag bgColor--green"
-              v-if="cardData.item.status === 0"
-            >
+            <span v-text="cardData.item.title" />
+            <div class="card__list__item__header__tag bgColor--green" v-if="cardData.item.status === 0">
               可租借
             </div>
-            <div
-              class="card__list__item__header__tag bgColor--orange"
-              v-if="cardData.item.status === 1"
-            >
+            <div class="card__list__item__header__tag bgColor--orange" v-if="cardData.item.status === 1">
               暫停租借
             </div>
-            <div
-              class="card__list__item__header__tag bgColor--red"
-              v-if="cardData.item.status === 2"
-            >
+            <div class="card__list__item__header__tag bgColor--red" v-if="cardData.item.status === 2">
               已下架
             </div>
           </h5>
           <p class="card__list__item__info">
             <i class="fas fa-dollar-sign"></i>
             <small>NT&nbsp;</small>
-            {{ commaFormat(cardData.item.price) }}
+            <span v-text="commaFormat(cardData.item.price)" />
           </p>
           <p class="card__list__item__info">
             <i class="fas fa-box"></i>
-            <span
-              :class="{
-                'textColor--green': cardData.item.stock > 30,
-                'textColor--orange':
-                  cardData.item.stock > 10 && cardData.item.stock <= 30,
-                'textColor--red': cardData.item.stock <= 10,
-              }"
-            >
-              {{ commaFormat(cardData.item.stock) }}
-            </span>
+            <span :class="{
+              'textColor--green': cardData.item.stock > 30,
+              'textColor--orange':
+                cardData.item.stock > 10 && cardData.item.stock <= 30,
+              'textColor--red': cardData.item.stock <= 10,
+            }" v-text="commaFormat(cardData.item.stock)" />
           </p>
-          <p class="card__list__item__info">{{ cardData.item.summary }}</p>
-          <button
-            type="button"
-            class="button button--edit"
-            @click="callGoodsEditor(false, cardData.item)"
-          >
+          <p class="card__list__item__info" v-text="cardData.item.summary" />
+          <button type="button" class="button button--edit" @click="callGoodsEditor(false, cardData.item)">
             <i class="fas fa-edit"></i>修改資訊
           </button>
         </template>
       </CardView>
     </transition>
     <transition name="slideRight" mode="out-in" appear>
-      <TableView
-        :tableHead="tableHead"
-        :tableData="searchProduct"
-        v-if="dataView === 'table'"
-      >
+      <TableView :tableHead="tableHead" :tableData="searchProduct" v-if="dataView === 'table'">
         <template #tableData="tableData">
           <td class="mobile-label goodsName">
             <img :src="tableData.item.pic" :alt="tableData.item.title" />
-            {{ tableData.item.title }}
+            <span v-text="tableData.item.title" />
           </td>
           <td class="mobile-label goodsStatus">
-            <span class="textColor--green" v-if="tableData.item.status === 0"
-              >可租借</span
-            >
-            <span class="textColor--orange" v-if="tableData.item.status === 1"
-              >暫停租借</span
-            >
-            <span class="textColor--red" v-if="tableData.item.status === 2"
-              >已下架</span
-            >
+            <span class="textColor--green" v-if="tableData.item.status === 0">可租借</span>
+            <span class="textColor--orange" v-if="tableData.item.status === 1">暫停租借</span>
+            <span class="textColor--red" v-if="tableData.item.status === 2">已下架</span>
           </td>
-          <td class="mobile-label price">
-            {{ commaFormat(tableData.item.price) }}
-          </td>
+          <td class="mobile-label price" v-text="commaFormat(tableData.item.price)" />
           <td class="mobile-label stock">
-            <span
-              :class="{
-                'textColor--green': tableData.item.stock > 30,
-                'textColor--orange':
-                  tableData.item.stock > 10 && tableData.item.stock <= 30,
-                'textColor--red': tableData.item.stock <= 10,
-              }"
-            >
-              {{ commaFormat(tableData.item.stock) }}
-            </span>
+            <span :class="{
+              'textColor--green': tableData.item.stock > 30,
+              'textColor--orange':
+                tableData.item.stock > 10 && tableData.item.stock <= 30,
+              'textColor--red': tableData.item.stock <= 10,
+            }" v-text="commaFormat(tableData.item.stock)" />
           </td>
-          <td class="mobile-label summary">{{ tableData.item.summary }}</td>
+          <td class="mobile-label summary" v-text="tableData.item.summary" />
           <td class="mobile-label maintain">
-            <button
-              type="button"
-              class="button button--viewer"
-              @click="callGoodsEditor(false, tableData.item)"
-            >
+            <button type="button" class="button button--viewer" @click="callGoodsEditor(false, tableData.item)">
               修改資訊
             </button>
           </td>

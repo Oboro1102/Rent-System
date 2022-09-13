@@ -1,7 +1,6 @@
 <template>
   <footer class="footer">
-    &copy;&nbsp;2021&nbsp;<span v-if="currentYear !== 2021" v-text="`&nbsp&nbsp;${ crentYear }`" />Design &
-    Coding by
+    &copy;&nbsp;2021&nbsp;<span v-if="currentYear > 2021" v-text="`-&nbsp;${ currentYear }&nbsp;`" />Design & Coding by
     ツキノリュウ.
   </footer>
 </template>

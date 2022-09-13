@@ -16,28 +16,19 @@
         <template #cardData="cardData">
           <h5 class="card__list__item__header">
             <div class="card__list__item__header__info">
-              <span>{{ cardData.item.sn }}</span>
+              <span v-text="cardData.item.sn" />
               <span>
                 <i class="fas fa-calendar-check"></i>
-                {{ cardData.item.created }}
+                <span v-text="cardData.item.created" />
               </span>
             </div>
-            <div
-              class="card__list__item__header__tag bgColor--green"
-              v-if="cardData.item.status === 0"
-            >
+            <div class="card__list__item__header__tag bgColor--green" v-if="cardData.item.status === 0">
               出借中
             </div>
-            <div
-              class="card__list__item__header__tag bgColor--orange"
-              v-if="cardData.item.status === 1"
-            >
+            <div class="card__list__item__header__tag bgColor--orange" v-if="cardData.item.status === 1">
               已歸還
             </div>
-            <div
-              class="card__list__item__header__tag bgColor--red"
-              v-if="cardData.item.status === 2"
-            >
+            <div class="card__list__item__header__tag bgColor--red" v-if="cardData.item.status === 2">
               逾期
             </div>
           </h5>
@@ -47,26 +38,20 @@
             </h5>
             <div class="card__list__item__lessee">
               <div class="card__list__item__lessee__title">
-                <div
-                  class="card__list__item__lessee__title__cover"
-                  :style="{
-                    backgroundImage:
-                      'url(' + cardData.item.lessee.picture.thumbnail + ')',
-                  }"
-                ></div>
-                <h6>{{ cardData.item.lessee.name.last }}</h6>
+                <div class="card__list__item__lessee__title__cover" :style="{
+                  backgroundImage:
+                    `url('${cardData.item.lessee.picture.thumbnail}')`,
+                }" />
+                <h6 v-text="cardData.item.lessee.name.last" />
               </div>
               <div>
                 <i class="fas fa-phone-square-alt"></i>
-                {{ cardData.item.lessee.phone }}
+                <span v-text="cardData.item.lessee.phone" />
               </div>
               <div>
                 <i class="fas fa-home"></i>
-                {{ cardData.item.lessee.location.street.number }}
-                {{ cardData.item.lessee.location.street.name }}
-                {{ cardData.item.lessee.location.city }}
-                {{ cardData.item.lessee.location.country }}
-                {{ cardData.item.lessee.location.state }}
+                <span
+                  v-text="`${cardData.item.lessee.location.street.number}${cardData.item.lessee.location.street.name}${cardData.item.lessee.location.city}${cardData.item.lessee.location.country}${cardData.item.lessee.location.state}`" />
               </div>
             </div>
           </div>
@@ -75,11 +60,9 @@
               <i class="fas fa-box"></i> 承租物
             </h5>
             <div v-for="(item, index) in cardData.item.purchase" :key="index">
-              <span>
-                {{ item.goods.title }} x {{ item.qty }}
-                <small style="margin-left: 1em">NT$</small>
-                {{ commaFormat(item.goods.price * item.qty) }}
-              </span>
+              <span v-text="`${item.goods.title} x ${item.qty}`" />
+              <small style="margin-left: 1em">NT$</small>
+              <span v-text="commaFormat(item.goods.price * item.qty)" />
             </div>
           </div>
           <div class="card__list__item__info">
@@ -87,60 +70,46 @@
               <i class="fas fa-coins"></i> 費用
             </h5>
             <div>
-              <span>
-                總額
-                <small style="margin-left: 1em">NT$</small>
-                {{ commaFormat(totalPrice(cardData.item.purchase)) }}
-              </span>
+              總額
+              <small style="margin-left: 1em">NT$</small>
+              <span v-text="commaFormat(totalPrice(cardData.item.purchase))" />
             </div>
             <div>
-              <span>
-                押金
-                <small style="margin-left: 1em">NT$</small>
-                {{
-                  commaFormat(
-                    Math.round((totalPrice(cardData.item.purchase) * 10) / 100)
-                  )
-                }}
-              </span>
+              押金
+              <small style="margin-left: 1em">NT$</small>
+              <span v-text="commaFormat(
+              Math.round((totalPrice(cardData.item.purchase) * 10) / 100)
+              )" />
             </div>
           </div>
           <div class="card__list__item__info" v-if="cardData.item.notes">
             <h5 class="card__list__item__info__title">
               <i class="fas fa-sticky-note"></i> 備註
             </h5>
-            <div>{{ cardData.item.notes }}</div>
+            <div v-text="cardData.item.notes" />
           </div>
           <div class="card__list__item__info">
             <h5 class="card__list__item__info__title">
               <i class="fas fa-reply-all"></i> 租期 (迄)
             </h5>
-            <div>{{ cardData.item.returnDate }}</div>
+            <div v-text="cardData.item.returnDate" />
           </div>
-          <button
-            type="button"
-            class="button button--edit"
-            @click="updateIouStatus(cardData.item)"
-            v-if="cardData.item.status !== 1"
-          >
+          <button type="button" class="button button--edit" @click="updateIouStatus(cardData.item)"
+            v-if="cardData.item.status !== 1">
             <i class="fas fa-undo"></i> 完成歸還
           </button>
         </template>
       </CardView>
     </transition>
     <transition name="slideRight" mode="out-in" appear>
-      <TableView
-        :tableHead="tableHead"
-        :tableData="searchIous"
-        v-if="dataView === 'table'"
-      >
+      <TableView :tableHead="tableHead" :tableData="searchIous" v-if="dataView === 'table'">
         <template #tableData="tableData">
           <td class="mobile-label sn">
             <h6>
-              {{ tableData.item.sn }}
+              <span v-text="tableData.item.sn" />
               <small class="textColor--green">
                 <i class="fas fa-calendar-check"></i>
-                {{ tableData.item.created }}
+                <span v-text="tableData.item.created" />
               </small>
             </h6>
           </td>
@@ -157,64 +126,40 @@
           </td>
           <td class="mobile-label lessee">
             <div v-if="tableData.item.lessee">
-              <img
-                :src="tableData.item.lessee.picture.thumbnail"
-                :alt="tableData.item.lessee.name.last"
-              />
-              {{ tableData.item.lessee.name.last }}
+              <img :src="tableData.item.lessee.picture.thumbnail" :alt="tableData.item.lessee.name.last" />
+              <span v-text="tableData.item.lessee.name.last" />
               <div>
                 <i class="fas fa-phone-square-alt"></i>
-                {{ tableData.item.lessee.phone }}
+                <span v-text="tableData.item.lessee.phone" />
               </div>
               <div>
                 <i class="fas fa-home"></i>
-                {{ tableData.item.lessee.location.street.number }}
-                {{ tableData.item.lessee.location.street.name }}
-                {{ tableData.item.lessee.location.city }}
-                {{ tableData.item.lessee.location.country }}
-                {{ tableData.item.lessee.location.state }}
+                <span
+                  v-text="`${tableData.item.lessee.location.street.number}${tableData.item.lessee.location.street.name}${tableData.item.lessee.location.city}${tableData.item.lessee.location.country}${tableData.item.lessee.location.state}`" />
               </div>
             </div>
           </td>
           <td class="mobile-label lease">
-            <div
-              class="listItem"
-              v-for="(item, index) in tableData.item.purchase"
-              :key="index"
-            >
+            <div class="listItem" v-for="(item, index) in tableData.item.purchase" :key="index">
               <h6>
                 <img :src="item.goods.pic" :alt="item.goods.title" />
-                {{ item.goods.title }}
+                <span v-text="item.goods.title" />
               </h6>
-              <small>數量：{{ item.qty }}</small>
-              <small style="margin-left: 1em">
-                單價：NT$ {{ commaFormat(item.goods.price) }}</small
-              >
+              <small v-text="`數量：${item.qty}`" />
+              <small style="margin-left: 1em" v-text="`單價：NT$ ${commaFormat(item.goods.price)}`" />
             </div>
           </td>
-          <td class="mobile-label rent">
-            {{ commaFormat(totalPrice(tableData.item.purchase)) }}
-          </td>
-          <td class="mobile-label deposit">
-            {{
-              commaFormat(
-                Math.round((totalPrice(tableData.item.purchase) * 10) / 100)
-              )
-            }}
-          </td>
-          <td class="mobile-label returnDate">
-            {{ tableData.item.returnDate }}
-          </td>
+          <td class="mobile-label rent" v-text="commaFormat(totalPrice(tableData.item.purchase))" />
+          <td class="mobile-label deposit" v-text="commaFormat(
+          Math.round((totalPrice(tableData.item.purchase) * 10) / 100)
+          )" />
+          <td class="mobile-label returnDate" v-text="tableData.item.returnDate" />
           <td class="mobile-label notes">
-            <span v-if="tableData.item.notes">{{ tableData.item.notes }}</span>
+            <span v-if="tableData.item.notes" v-text="tableData.item.notes" />
           </td>
           <td class="mobile-label operating">
-            <button
-              type="button"
-              class="button button--viewer"
-              @click="updateIouStatus(tableData.item)"
-              v-if="tableData.item.status !== 1"
-            >
+            <button type="button" class="button button--viewer" @click="updateIouStatus(tableData.item)"
+              v-if="tableData.item.status !== 1">
               完成歸還
             </button>
           </td>
@@ -280,7 +225,7 @@ export default {
           item.sn.includes(searchFilter.value)
         );
       } else if (filterValue.value !== "" && filterValue.value !== "all") {
-        result = ious.value.filter((item) => item.status == filterValue.value);
+        result = ious.value.filter((item) => item.status === filterValue.value);
       } else {
         result = ious.value;
       }

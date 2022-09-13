@@ -1,13 +1,9 @@
 <template>
   <div class="popNotification">
     <ul class="popNotification__wrap">
-      <li
-        v-for="(item, index) in panelState.filter((item) => item.count > 0)"
-        :key="index"
-      >
-        {{ item.title }}
-        <span class="popNotification__tag">{{ item.count }}</span
-        >筆
+      <li v-for="(item, index) in panelState.filter((item) => item.count > 0)" :key="index">
+        <span v-text="item.title" />
+        <span class="popNotification__tag" v-text="item.count" />筆
       </li>
     </ul>
   </div>

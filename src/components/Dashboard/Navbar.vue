@@ -1,58 +1,32 @@
 <template>
   <nav class="navbar-top" :class="{ 'navbar-top--scrolling': scrolling }">
-    <div
-      class="navbar-top__menu__trigger"
-      @click="triggerMenu()"
-      v-if="!windowInnerWidth"
-    >
+    <div class="navbar-top__menu__trigger" @click="triggerMenu()" v-if="!windowInnerWidth">
       <i class="fas fa-bars" v-if="!sideMenu"></i>
       <i class="fas fa-times-circle" v-else></i>
     </div>
     <ul class="navbar-top__menu">
-      <li
-        class="navbar-top__menu__item"
-        v-if="routeName !== 'Balance' && routeName !== 'Home'"
-      >
-        <div
-          class="navbar-top__menu__link cardView"
-          :class="{ 'navbar-top__menu__link--active': dataView === 'card' }"
-          @click="changeView('card')"
-        >
+      <li class="navbar-top__menu__item" v-if="routeName !== 'Balance' && routeName !== 'Home'">
+        <div class="navbar-top__menu__link cardView" :class="{ 'navbar-top__menu__link--active': dataView === 'card' }"
+          @click="changeView('card')">
           <i class="fas fa-th"></i>
         </div>
       </li>
-      <li
-        class="navbar-top__menu__item"
-        v-if="routeName !== 'Balance' && routeName !== 'Home'"
-      >
-        <div
-          class="navbar-top__menu__link tableView"
-          :class="{ 'navbar-top__menu__link--active': dataView === 'table' }"
-          @click="changeView('table')"
-        >
+      <li class="navbar-top__menu__item" v-if="routeName !== 'Balance' && routeName !== 'Home'">
+        <div class="navbar-top__menu__link tableView"
+          :class="{ 'navbar-top__menu__link--active': dataView === 'table' }" @click="changeView('table')">
           <i class="fas fa-th-list"></i>
         </div>
       </li>
-      <li
-        class="navbar-top__menu__item"
-        v-if="panelState.filter((item) => item.count > 0).length > 0"
-      >
-        <div
-          class="navbar-top__menu__link noti"
-          tabindex="-1"
-          @focus="callNotification"
-          @blur="callNotification"
-        >
+      <li class="navbar-top__menu__item" v-if="panelState.filter((item) => item.count > 0).length > 0">
+        <div class="navbar-top__menu__link noti" tabindex="-1" @focus="callNotification" @blur="callNotification">
           <span class="notification"></span>
           <i class="far fa-bell"></i>
         </div>
         <transition name="slideDown" mode="out-in" appear>
-          <Notification
-            v-if="
-              showNotification &&
-              panelState.filter((item) => item.count > 0).length > 0
-            "
-          />
+          <Notification v-if="
+            showNotification &&
+            panelState.filter((item) => item.count > 0).length > 0
+          " />
         </transition>
       </li>
       <li class="navbar-top__menu__item">
@@ -61,58 +35,34 @@
         </div>
       </li>
       <li class="navbar-top__menu__item">
-        <button
-          type="button"
-          class="navbar-top__menu__link logout"
-          @click="logout"
-        >
+        <button type="button" class="navbar-top__menu__link logout" @click="logout">
           <i class="fas fa-sign-out-alt"></i>
         </button>
       </li>
     </ul>
   </nav>
   <transition name="slideLeft" mode="out-in" appear>
-    <nav
-      class="navbar-side"
-      :class="{ noTextMenu: !sideMenu }"
-      v-if="windowInnerWidth || sideMenu"
-    >
+    <nav class="navbar-side" :class="{ noTextMenu: !sideMenu }" v-if="windowInnerWidth || sideMenu">
       <ul class="navbar-side__menu">
         <li class="navbar-side__menu__item">
-          <router-link
-            class="navbar-side__menu__link"
-            to="home"
-            :class="{ home: !sideMenu }"
-            @click="closeMenuOnMobile"
-          >
+          <router-link class="navbar-side__menu__link" to="home" :class="{ home: !sideMenu }"
+            @click="closeMenuOnMobile">
             <i class="fas fa-house-user"></i>
             <span v-if="sideMenu">首頁</span>
           </router-link>
         </li>
         <hr v-if="windowInnerWidth" />
-        <li
-          class="navbar-side__menu__item"
-          v-for="(item, index) in routers"
-          :key="index"
-        >
-          <router-link
-            class="navbar-side__menu__link"
-            :to="item.link"
-            :class="{ [item.link]: !sideMenu }"
-            @click="closeMenuOnMobile"
-          >
+        <li class="navbar-side__menu__item" v-for="(item, index) in routers" :key="index">
+          <router-link class="navbar-side__menu__link" :to="item.link" :class="{ [item.link]: !sideMenu }"
+            @click="closeMenuOnMobile">
             <i :class="item.icon"></i>
-            <span v-if="sideMenu">{{ item.title }}</span>
+            <span v-if="sideMenu" v-text="item.title" />
           </router-link>
         </li>
         <hr v-if="windowInnerWidth" style="margin-top: auto" />
         <li class="navbar-side__menu__item">
-          <span
-            class="navbar-side__menu__link"
-            @click="triggerMenu()"
-            :class="{ extendMenu: !sideMenu }"
-            v-if="windowInnerWidth"
-          >
+          <span class="navbar-side__menu__link" @click="triggerMenu()" :class="{ extendMenu: !sideMenu }"
+            v-if="windowInnerWidth">
             <i class="fas fa-outdent" :class="{ flip: !sideMenu }"></i>
             <span v-if="sideMenu">收合選單</span>
           </span>
@@ -591,6 +541,7 @@ export default {
 .logout {
   padding: 0;
   background-color: transparent;
+
   &:hover {
     &::after {
       content: "登出系統";

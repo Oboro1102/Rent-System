@@ -5,103 +5,60 @@
     <transition name="slideRight" mode="out-in" appear>
       <CardView :cardData="searchMembers" v-if="dataView === 'card'">
         <template #cardData="cardData">
-          <div
-            class="card__list__item__cover"
-            :style="{
-              backgroundImage: 'url(' + cardData.item.picture.large + ')',
-            }"
-          ></div>
+          <div class="card__list__item__cover" :style="{
+            backgroundImage: `url('${cardData.item.picture.large}')`,
+          }"></div>
           <h5 class="card__list__item__header">
-            <span
-              class="textColor--blue"
-              v-if="cardData.item.gender === 'male'"
-              style="margin-right: 0.25em"
-            >
+            <span class="textColor--blue" v-if="cardData.item.gender === 'male'" style="margin-right: 0.25em">
               <i class="fas fa-mars"></i>
             </span>
-            <span
-              class="textColor--pink"
-              v-if="cardData.item.gender === 'female'"
-              style="margin-right: 0.25em"
-            >
+            <span class="textColor--pink" v-if="cardData.item.gender === 'female'" style="margin-right: 0.25em">
               <i class="fas fa-venus"></i>
             </span>
-            {{ cardData.item.name.last }}
-            <button
-              type="button"
-              class="button button--viewer"
-              v-if="checkHaveIou(cardData.item) !== -1"
-              @click="callIouView(cardData.item)"
-            >
+            <span v-text="cardData.item.name.last" />
+            <button type="button" class="button button--viewer" v-if="checkHaveIou(cardData.item) !== -1"
+              @click="callIouView(cardData.item)">
               <i class="fas fa-history"></i>
             </button>
           </h5>
           <p class="card__list__item__info">
             <i class="fas fa-mobile-alt"></i>
-            {{ cardData.item.phone }}
+            <span v-text="cardData.item.phone" />
           </p>
           <p class="card__list__item__info">
             <i class="far fa-envelope"></i>
-            {{ cardData.item.email }}
+            <span v-text="cardData.item.email" />
           </p>
           <p class="card__list__item__info">
             <i class="fas fa-house-user"></i>
-            {{ cardData.item.location.street.number }}
-            {{ cardData.item.location.street.name }}
-            {{ cardData.item.location.city }}
-            {{ cardData.item.location.country }}
-            {{ cardData.item.location.state }}
+            <span
+              v-text="`${cardData.item.location.street.number}${cardData.item.location.street.name}${cardData.item.location.city}${cardData.item.location.country}${cardData.item.location.state}`" />
           </p>
           <p class="card__list__item__info">
             <i class="fas fa-user-plus"></i>
-            {{ cardData.item.registered.date.split("T")[0] }}
-            {{ cardData.item.registered.date.split("T")[1].split(":")[0] }}:{{
-              cardData.item.registered.date.split("T")[1].split(":")[1]
-            }}
+            <span
+              v-text="`${cardData.item.registered.date.split('T')[0]}${cardData.item.registered.date.split('T')[1].split(':')[0]}:${cardData.item.registered.date.split('T')[1].split(':')[1]}`" />
           </p>
         </template>
       </CardView>
     </transition>
     <transition name="slideRight" mode="out-in" appear>
-      <TableView
-        :tableHead="tableHead"
-        :tableData="searchMembers"
-        v-if="dataView === 'table'"
-      >
+      <TableView :tableHead="tableHead" :tableData="searchMembers" v-if="dataView === 'table'">
         <template #tableData="tableData">
           <td class="mobile-label memberName">
-            <img
-              :src="tableData.item.picture.large"
-              :alt="tableData.item.name.last"
-            />
-            {{ tableData.item.name.last }}
+            <img :src="tableData.item.picture.large" :alt="tableData.item.name.last" />
+            <span v-text="tableData.item.name.last" />
           </td>
-          <td class="mobile-label phone">
-            {{ tableData.item.phone }}
-          </td>
-          <td class="mobile-label email">
-            {{ tableData.item.email }}
-          </td>
-          <td class="mobile-label location">
-            {{ tableData.item.location.street.number }}
-            {{ tableData.item.location.street.name }}
-            {{ tableData.item.location.city }}
-            {{ tableData.item.location.country }}
-            {{ tableData.item.location.state }}
-          </td>
-          <td class="mobile-label created">
-            {{ tableData.item.registered.date.split("T")[0] }}
-            {{ tableData.item.registered.date.split("T")[1].split(":")[0] }}:{{
-              tableData.item.registered.date.split("T")[1].split(":")[1]
-            }}
-          </td>
+          <td class="mobile-label phone" v-text="tableData.item.phone" />
+          <td class="mobile-label email" v-text="tableData.item.email" />
+          <td class="mobile-label location"
+            v-text="`${tableData.item.location.street.number}${tableData.item.location.street.name}${tableData.item.location.city}${tableData.item.location.country}${tableData.item.location.state}`" />
+          <td class="mobile-label created"
+            v-text="`${cardData.item.registered.date.split('T')[0]}${cardData.item.registered.date.split('T')[1].split(':')[0]}:${cardData.item.registered.date.split('T')[1].split(':')[1]}`" />
+          >
           <td class="mobile-label ious">
-            <button
-              type="button"
-              class="button button--viewer"
-              v-if="checkHaveIou(tableData.item) !== -1"
-              @click="callIouView(tableData.item)"
-            >
+            <button type="button" class="button button--viewer" v-if="checkHaveIou(tableData.item) !== -1"
+              @click="callIouView(tableData.item)">
               瀏覽
             </button>
           </td>

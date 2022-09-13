@@ -2,9 +2,7 @@
   <section class="main">
     <div class="main--key__wrap" data-aos="fade-up">
       <h1 class="main--key__wrap__slogn">
-        <span>租賃管理</span><br /><span class="textColor--yellow"
-          >最佳方案</span
-        ><br /><span>出租線上化！</span>
+        <span>租賃管理</span><br /><span class="textColor--yellow">最佳方案</span><br /><span>出租線上化！</span>
       </h1>
     </div>
   </section>
@@ -32,12 +30,7 @@
   </section>
   <section class="wrap wrap--contact">
     <h3 class="wrap__title textColor--white">聯絡我們</h3>
-    <form
-      class="wrap__content"
-      action="#"
-      method="post"
-      onsubmit="event.preventDefault();"
-    >
+    <form class="wrap__content" action="#" method="post" onsubmit="event.preventDefault();">
       <div class="wrap--contact__row">
         <span class="wrap--contact__row__icon">
           <i class="fas fa-id-card"></i>
@@ -48,51 +41,29 @@
         <span class="wrap--contact__row__icon">
           <i class="fas fa-envelope"></i>
         </span>
-        <input
-          type="email"
-          name="email"
-          placeholder="請輸入連絡您的電子郵件"
-          required
-        />
+        <input type="email" name="email" placeholder="請輸入連絡您的電子郵件" required />
       </div>
       <div class="wrap--contact__row">
-        <textarea
-          name="message"
-          cols="30"
-          rows="10"
-          placeholder="請輸入您欲傳送的訊息"
-        ></textarea>
+        <textarea name="message" cols="30" rows="10" placeholder="請輸入您欲傳送的訊息"></textarea>
       </div>
       <button class="button" type="submit">送出</button>
     </form>
   </section>
   <footer class="footer">
     <div class="footer__about">
-      <button
-        type="button"
-        class="button button--about"
-        @focus="showPopover = true"
-        @blur="showPopover = false"
-      >
+      <button type="button" class="button button--about" @focus="showPopover = true" @blur="showPopover = false">
         ABOUT
       </button>
       <transition name="slideDown" mode="out-in" appear>
         <div class="footer__about__popover" v-if="showPopover">
-          本系統採用<a href="https://v3.vuejs.org/" target="_blank">Vue3</a
-          >進行前端開發，高品質的圖片素材使用自<a
-            href="https://unsplash.com/"
-            target="_blank"
-            >Unsplash</a
-          >，會員資料串接<a href="https://randomuser.me/" target="_blank"
-            >Random user generator</a
-          >。
+          本系統採用<a href="https://v3.vuejs.org/" target="_blank">Vue3</a>進行前端開發，高品質的圖片素材使用自<a href="https://unsplash.com/"
+            target="_blank">Unsplash</a>，會員資料串接<a href="https://randomuser.me/" target="_blank">Random user
+            generator</a>。
         </div>
       </transition>
     </div>
     <div class="footer__copyright">
-      &copy; 2021<span v-if="currentYear != 2021"
-        >&nbsp;-&nbsp;{{ currentYear }}</span
-      >&nbsp;Design & Coding by ツキノリュウ.
+      &copy; 2021<span v-if="currentYear != 2021">&nbsp;-&nbsp;{{ currentYear }}</span>&nbsp;Design & Coding by ツキノリュウ.
     </div>
   </footer>
   <LoginService />
@@ -235,6 +206,7 @@ export default {
           &:nth-child(3n) {
             margin-right: 0;
           }
+
           @include flex-arrangement(2);
         }
 

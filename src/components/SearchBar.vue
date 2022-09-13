@@ -1,20 +1,11 @@
 <template>
-  <div
-    class="searchbar"
-    :class="{
-      'searchbar--noTextMenu': !sideMenu,
-      'searchbar--scrolling': scrolling,
-    }"
-  >
+  <div class="searchbar" :class="{
+    'searchbar--noTextMenu': !sideMenu,
+    'searchbar--scrolling': scrolling,
+  }">
     <div class="searchbar__input">
       <i class="fas fa-search searchbar__input__icon"></i>
-      <input
-        type="search"
-        name="search"
-        :placeholder="placeholder"
-        v-model="searchFilter"
-        @input="setKeyword"
-      />
+      <input type="search" name="search" :placeholder="placeholder" v-model="searchFilter" @input="setKeyword" />
     </div>
   </div>
 </template>
@@ -27,7 +18,7 @@ export default {
   props: {
     placeholder: {
       type: String,
-      required: true,
+      default: '',
     },
   },
   setup() {

@@ -3,19 +3,13 @@
     <h1 v-if="panelState.filter((item) => item.count > 0).length < 1">
       目前無需處理事項
     </h1>
-    <div
-      class="panel__item"
-      v-for="(item, index) in panelState.filter((item) => item.count > 0)"
-      :key="index"
-      v-else
-    >
+    <div class="panel__item" v-for="(item, index) in panelState.filter((item) => item.count > 0)" :key="index" v-else>
       <div class="panel__item__icon" :class="item.bgColor">
         <i :class="item.icon"></i>
       </div>
       <div class="panel__item__content">
-        <h5 class="panel__item__title">{{ item.title }}</h5>
-        <span class="panel__item__content__number">{{ item.count }}</span
-        >筆
+        <h5 class="panel__item__title" v-text="item.title" />
+        <span class="panel__item__content__number" v-text="item.count" />筆
       </div>
     </div>
   </div>

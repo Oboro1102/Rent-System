@@ -1,11 +1,8 @@
 <template>
-  <div
-    class="stateFilter"
-    :class="{
-      'stateFilter--noTextMenu': !sideMenu,
-      'stateFilter--scrolling': scrolling,
-    }"
-  >
+  <div class="stateFilter" :class="{
+    'stateFilter--noTextMenu': !sideMenu,
+    'stateFilter--scrolling': scrolling,
+  }">
     <div class="stateFilter__select">
       <i class="fas fa-filter stateFilter__icon"></i>
       <select name="iouStatus" v-model="filterStatus" @change="filterResult">

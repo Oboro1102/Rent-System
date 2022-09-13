@@ -1,88 +1,44 @@
 <template>
-  <button
-    type="button"
-    class="button loginButton"
-    @click="triggerLoginFormModel(true)"
-  >
+  <button type="button" class="button loginButton" @click="triggerLoginFormModel(true)">
     <i class="far fa-user"></i>
     <span>登入</span>
   </button>
   <teleport to="body">
     <transition name="slideLeft" mode="out-in" appear>
-      <div
-        class="login"
-        @click.self="triggerLoginFormModel(false)"
-        v-if="showLoginForm"
-      >
+      <div class="login" @click.self="triggerLoginFormModel(false)" v-if="showLoginForm">
         <div class="login__wrap">
           <h4 class="login__title">
             <i class="fas fa-door-open"></i> 用戶登入
           </h4>
-          <form
-            action="#"
-            class="login__form"
-            method="post"
-            @submit.prevent="login"
-          >
+          <form action="#" class="login__form" method="post" @submit.prevent="login">
             <div class="login__form__row">
               <span class="login__form__row__icon">
                 <i class="fas fa-user"></i>
               </span>
-              <input
-                type="text"
-                name="username"
-                placeholder="請輸入帳號"
-                inputmode="text"
-                v-model="username"
-              />
-              <span class="login__form__row__alert" v-if="alert.username">
-                {{ alert.username }}
-              </span>
+              <input type="text" name="username" placeholder="請輸入帳號" inputmode="text" v-model="username" />
+              <span class="login__form__row__alert" v-if="alert.username" v-text="alert.username" />
             </div>
             <div class="login__form__row">
               <span class="login__form__row__icon">
                 <i class="fas fa-lock"></i>
               </span>
-              <input
-                type="password"
-                name="password"
-                placeholder="請輸入密碼"
-                inputmode="text"
-                autocomplete
-                v-model="password"
-              />
-              <span class="login__form__row__alert" v-if="alert.password">
-                {{ alert.password }}
-              </span>
+              <input type="password" name="password" placeholder="請輸入密碼" inputmode="text" autocomplete
+                v-model="password" />
+              <span class="login__form__row__alert" v-if="alert.password" v-text="alert.password" />
             </div>
             <h2 class="login__title notice">
               示範使用者<small>（功能示範，請選擇使用者進入系統操作）</small>
             </h2>
             <div class="login__form__row identity">
-              <button
-                type="button"
-                class="button"
-                v-for="item in users"
-                :key="item.id"
-                @click="setUser(item)"
-              >
-                {{ item.title }}
-              </button>
+              <button type="button" class="button" v-for="item in users" :key="item.id" @click="setUser(item)"
+                v-text="item.title" />
             </div>
             <div class="login__form__row">
-              <button
-                type="submit"
-                class="button"
-                style="width: 47.5%; margin-right: auto"
-              >
+              <button type="submit" class="button" style="width: 47.5%; margin-right: auto">
                 登入
               </button>
-              <button
-                type="button"
-                class="button button--refuse"
-                style="width: 47.5%"
-                @click="triggerLoginFormModel(false)"
-              >
+              <button type="button" class="button button--refuse" style="width: 47.5%"
+                @click="triggerLoginFormModel(false)">
                 關閉
               </button>
             </div>
@@ -134,23 +90,22 @@ export default {
         (item) => item.password === password.value
       );
 
-      if (username.value.length === 0 || username.value === "") {
+      if (username.value.length < 1) {
         return (alert.username = "請輸入帳號！");
       }
-
-      if (password.value.length === 0 || password.value === "") {
-        return (alert.password = "請輸入密碼！");
-      }
-
       if (username.value.length > 10) {
         return (alert.username = "帳號請勿超過 10 個字，請重新輸入。");
+      }
+
+      if (password.value.length < 1) {
+        return (alert.password = "請輸入密碼！");
       }
 
       if (password.value.length > 10) {
         return (alert.password = "密碼請勿超過 10 個字，請重新輸入。");
       }
 
-      if (checkAccount === undefined || checkPassword === undefined) {
+      if (!checkAccount || !checkPassword) {
         return window.alert("帳號密碼有誤，請重新輸入。");
       } else {
         sessionStorage.setItem("token", "ImLogin");
@@ -167,17 +122,16 @@ export default {
     });
 
     watch([username, password], ([username, password]) => {
-      if (username.length !== 0) {
-        alert.username = null;
-      }
       if (username.length > 10) {
         alert.username = "帳號請勿超過 10 個字！";
+      } else {
+        alert.username = null;
       }
-      if (password.length !== 0) {
-        alert.password = null;
-      }
+
       if (password.length > 10) {
         alert.password = "密碼請勿超過 10 個字！";
+      } else {
+        alert.password = null;
       }
     });
 

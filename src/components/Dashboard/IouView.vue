@@ -4,11 +4,7 @@
       <h1 class="modal__wrap__header">租借紀錄</h1>
       <div class="modal__wrap__content">
         <ul class="modal__wrap__list">
-          <li
-            class="modal__wrap__list__item"
-            v-for="item in data"
-            :key="item.sn"
-          >
+          <li class="modal__wrap__list__item" v-for="item in data" :key="item.sn">
             <h6 class="modal__wrap__list__item__title">
               <span>
                 {{ item.sn }}
@@ -16,22 +12,13 @@
                   <i class="fas fa-calendar-check"></i> {{ item.created }}
                 </span>
               </span>
-              <span
-                class="modal__wrap__list__item__title__tag bgColor--green"
-                v-if="item.status === 0"
-              >
+              <span class="modal__wrap__list__item__title__tag bgColor--green" v-if="item.status === 0">
                 承租中
               </span>
-              <span
-                class="modal__wrap__list__item__title__tag bgColor--orange"
-                v-if="item.status === 1"
-              >
+              <span class="modal__wrap__list__item__title__tag bgColor--orange" v-if="item.status === 1">
                 已歸還
               </span>
-              <span
-                class="modal__wrap__list__item__title__tag bgColor--red"
-                v-if="item.status === 2"
-              >
+              <span class="modal__wrap__list__item__title__tag bgColor--red" v-if="item.status === 2">
                 逾期
               </span>
             </h6>
@@ -40,19 +27,12 @@
                 <i class="fas fa-box"></i> 承租物
               </h6>
               <ul class="modal__wrap__list__item__info__list">
-                <li
-                  class="modal__wrap__list__item__info__list__item"
-                  v-for="(item, index) in item.purchase"
-                  :key="index"
-                >
-                  <img
-                    :src="item.goods.pic"
-                    :alt="item.goods.title"
-                    style="max-width: 100px; margin-right: 1em"
-                  />
-                  {{ item.goods.title }} x {{ item.qty }}
+                <li class="modal__wrap__list__item__info__list__item" v-for="(item, index) in item.purchase"
+                  :key="index">
+                  <img :src="item.goods.pic" :alt="item.goods.title" style="max-width: 100px; margin-right: 1em" />
+                  <span v-text="`${item.goods.title} x ${item.qty}`" />
                   <small style="margin-left: 1em">NT$</small>
-                  {{ commaFormat(item.goods.price) }}
+                  <span v-text="commaFormat(item.goods.price)" />
                 </li>
               </ul>
             </div>
@@ -61,35 +41,29 @@
                 <i class="fas fa-coins"></i> 費用
               </h6>
               <div>
-                <span>
-                  總額
-                  <small style="margin-left: 1em">NT$</small>
-                  {{ commaFormat(totalPrice(item.purchase)) }}
-                </span>
+                總額
+                <small style="margin-left: 1em">NT$</small>
+                <span v-text="commaFormat(totalPrice(item.purchase))" />
               </div>
               <div>
-                <span>
-                  押金
-                  <small style="margin-left: 1em">NT$</small>
-                  {{
-                    commaFormat(
-                      Math.round((totalPrice(item.purchase) * 10) / 100)
-                    )
-                  }}
-                </span>
+                押金
+                <small style="margin-left: 1em">NT$</small>
+                <span v-text=" commaFormat(
+                Math.round((totalPrice(item.purchase) * 10) / 100)
+                )" />
               </div>
             </div>
             <div class="modal__wrap__list__item__info">
               <h6 class="modal__wrap__list__item__info__title">
                 <i class="fas fa-reply-all"></i> 租期 (迄)
               </h6>
-              {{ item.returnDate }}
+              <span v-text="item.returnDate" />
             </div>
             <div class="modal__wrap__list__item__info" v-if="item.notes">
               <h6 class="modal__wrap__list__item__info__title">
                 <i class="fas fa-sticky-note"></i> 備註
               </h6>
-              {{ item.notes }}
+              <span v-text="item.notes" />
             </div>
           </li>
         </ul>
@@ -108,7 +82,7 @@ export default {
   props: {
     data: {
       type: Array,
-      required: true,
+      default: () => [],
     },
   },
   setup() {
@@ -118,7 +92,7 @@ export default {
       return store.commit("member/showIouView", false, { root: true });
     };
     const commaFormat = (value) => {
-      return Number(value).toLocaleString("zh-TW");
+      return Number(value).toLocaleString();
     };
     const totalPrice = (item) => {
       let totalPrice = 0;

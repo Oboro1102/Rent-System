@@ -25,11 +25,11 @@ export default {
   props: {
     tableHead: {
       type: Array,
-      required: true,
+      default: () => [],
     },
     tableData: {
       type: Array,
-      required: true,
+      default: () => [],
     },
   },
 };

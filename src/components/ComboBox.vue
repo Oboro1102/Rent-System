@@ -1,29 +1,14 @@
 <template>
   <transition name="slideDown" mode="out-in" appear>
     <div class="combobox" role="combobox" v-if="using">
-      <input
-        type="search"
-        name="search"
-        :placeholder="placeholder"
-        v-model="keyword"
-        @input="searchItem"
-        @focus="searchItem"
-        @blur="closeDropdowns"
-      />
+      <input type="search" name="search" :placeholder="placeholder" v-model="keyword" @input="searchItem"
+        @focus="searchItem" @blur="closeDropdowns" />
       <div class="combobox__dropdowns">
-        <div
-          class="combobox__dropdowns__item combobox__dropdowns__item--center"
-          v-if="searchResult.length === 0"
-        >
+        <div class="combobox__dropdowns__item combobox__dropdowns__item--center" v-if="searchResult.length === 0">
           查無資料
         </div>
-        <div
-          class="combobox__dropdowns__item"
-          v-for="item in searchResult"
-          :key="item.id"
-          @click="passSelectValue(item)"
-          v-else
-        >
+        <div class="combobox__dropdowns__item" v-for="item in searchResult" :key="item.id"
+          @click="passSelectValue(item)" v-else>
           <slot name="dropdowns" :item="item" />
         </div>
       </div>
@@ -38,15 +23,15 @@ export default {
   props: {
     dropdownsData: {
       type: Array,
-      required: true,
+      default: () => [],
     },
     placeholder: {
       type: String,
-      required: true,
+      default: '',
     },
     searchBy: {
       type: String,
-      required: true,
+      default: '',
     },
   },
   emits: ["selectedValue"],
@@ -63,7 +48,7 @@ export default {
 
       using.value = true;
 
-      if (keyword.value === "") {
+      if (keyword.value.length < 1) {
         return (searchResult.value = props.dropdownsData);
       } else {
         return (searchResult.value = search);

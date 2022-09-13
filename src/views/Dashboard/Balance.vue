@@ -2,14 +2,10 @@
   <div>
     <Filterselector>
       <option value="0" hidden>請選擇時間</option>
-      <optgroup
-        :label="item.year + '年'"
-        v-for="(item, index) in formatTimeData(balanceTime)"
-        :key="index"
-      >
+      <optgroup :label="`${item.year}年`" v-for="(item, index) in formatTimeData(balanceTime)" :key="index">
         <option :value="item" v-for="(item, index) in item.month" :key="index">
-          <span v-if="item >= 10">{{ item.split("-")[1] }}月</span>
-          <span v-else>{{ item.split("-")[1].split("")[1] }}月</span>
+          <span v-if="item >= 10" v-text="`${item.split('-')[1]}月`" />
+          <span v-else v-text="`${item.split('-')[1].split('')[1]}月`" />
         </option>
       </optgroup>
     </Filterselector>
@@ -17,10 +13,10 @@
       <table class="balance__table">
         <thead>
           <tr>
-            <th v-for="(item, index) in tableHead" :key="index">{{ item }}</th>
+            <th v-for="(item, index) in tableHead" :key="index" v-text="item" />
           </tr>
         </thead>
-        <tbody v-if="filterBalance.length == 0">
+        <tbody v-if="filterBalance.length < 1">
           <tr class="noResult">
             <td :colspan="tableHead.length">請選擇時間</td>
           </tr>
@@ -29,47 +25,28 @@
           <tr v-for="(item, index) in filterBalance" :key="index">
             <td>
               <h6>
-                {{ item.sn }}
+                <span v-text="item.sn" />
                 <small>
                   <i class="fas fa-calendar-check"></i> {{ item.created }}
                 </small>
               </h6>
             </td>
             <td style="padding: 0">
-              <div
-                class="listItem"
-                v-for="(item, index) in item.purchase"
-                :key="index"
-              >
+              <div class="listItem" v-for="(item, index) in item.purchase" :key="index">
                 <img :src="item.goods.pic" :alt="item.goods.title" />
-                {{ item.goods.title }}
+                <span v-text="item.goods.title" />
               </div>
             </td>
             <td style="padding: 0">
-              <div
-                class="listItem"
-                v-for="(item, index) in item.purchase"
-                :key="index"
-              >
-                {{ item.qty }}
-              </div>
+              <div class="listItem" v-for="(item, index) in item.purchase" :key="index" v-text="item.qty" />
             </td>
             <td style="padding: 0">
-              <div
-                class="listItem"
-                v-for="(item, index) in item.purchase"
-                :key="index"
-              >
-                {{ commaFormat(item.goods.price) }}
-              </div>
+              <div class="listItem" v-for="(item, index) in item.purchase" :key="index"
+                v-text="commaFormat(item.goods.price)" />
             </td>
-            <td>
-              {{
-                commaFormat(Math.round((totalPrice(item.purchase) * 10) / 100))
-              }}
-            </td>
-            <td>{{ commaFormat(totalPrice(item.purchase)) }}</td>
-            <td>{{ commaFormat(totalPrice(item.purchase)) }}</td>
+            <td v-text="commaFormat(Math.round((totalPrice(item.purchase) * 10) / 100))" />
+            <td v-text="commaFormat(totalPrice(item.purchase))" />
+            <td v-text="commaFormat(totalPrice(item.purchase))" />
           </tr>
         </tbody>
         <tfoot class="statement">
@@ -79,8 +56,8 @@
             <th />
             <th />
             <th style="text-align: right">合計</th>
-            <th>{{ commaFormat(totalAmount(filterBalance)) }}</th>
-            <th>{{ commaFormat(totalAmount(filterBalance)) }}</th>
+            <th v-text="commaFormat(totalAmount(filterBalance))" />
+            <th v-text="commaFormat(totalAmount(filterBalance))" />
           </tr>
         </tfoot>
       </table>
@@ -155,7 +132,7 @@ export default {
       const newArray = [];
 
       data.forEach((item) => {
-        newArray.push(item.split("-")[0] + "-" + item.split("-")[1]);
+        newArray.push(`${item.split("-")[0]}-${item.split("-")[1]}`);
       });
 
       const filterRepeat = newArray.filter((item, index, array) => {
