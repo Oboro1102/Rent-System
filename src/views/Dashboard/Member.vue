@@ -54,8 +54,7 @@
           <td class="mobile-label location"
             v-text="`${tableData.item.location.street.number}${tableData.item.location.street.name}${tableData.item.location.city}${tableData.item.location.country}${tableData.item.location.state}`" />
           <td class="mobile-label created"
-            v-text="`${cardData.item.registered.date.split('T')[0]}${cardData.item.registered.date.split('T')[1].split(':')[0]}:${cardData.item.registered.date.split('T')[1].split(':')[1]}`" />
-          >
+            v-text="`${tableData.item.registered.date.split('T')[0]}${tableData.item.registered.date.split('T')[1].split(':')[0]}:${tableData.item.registered.date.split('T')[1].split(':')[1]}`" />
           <td class="mobile-label ious">
             <button type="button" class="button button--viewer" v-if="checkHaveIou(tableData.item) !== -1"
               @click="callIouView(tableData.item)">
